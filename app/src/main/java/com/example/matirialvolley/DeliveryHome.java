@@ -1,5 +1,6 @@
 package com.example.matirialvolley;
 
+import static com.android.volley.Request.Method.GET;
 import static com.android.volley.Request.Method.POST;
 
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
@@ -71,11 +73,9 @@ public class DeliveryHome extends AppCompatActivity {
         Toast.makeText(this, "Start loging out", Toast.LENGTH_SHORT).show();
         binding.progressBar3.setVisibility(View.VISIBLE);
         Log.e("Stateee","LogOut 1 ");
-        JSONObject jsonObject = new JSONObject();
-        Log.e("Stateee","jsonObject created  2 ");
 
 //انشاء ريكويست جديد
-         JsonObjectRequest objectRequest = new JsonObjectRequest(POST, url, jsonObject
+         JsonObjectRequest objectRequest = new JsonObjectRequest(GET, url,null
                 , response -> {
             binding.progressBar3.setVisibility(View.INVISIBLE);
             Log.e("Stateee","on Request 3 ");
@@ -134,10 +134,9 @@ public class DeliveryHome extends AppCompatActivity {
     private void postTokenToHome() {
         Toast.makeText(this, "on postTokenToHome", Toast.LENGTH_SHORT).show();
         binding.progressBar3.setVisibility(View.VISIBLE);
-        JSONObject jsonObject = new JSONObject();
-//انشاء ريكويست جديد
+ //انشاء ريكويست جديد
         //end onResponse
-        JsonObjectRequest objectRequest = new JsonObjectRequest(POST, url, jsonObject
+        JsonObjectRequest objectRequest = new JsonObjectRequest(POST, url, null
                 , response -> {
             binding.progressBar3.setVisibility(View.INVISIBLE);
             //فحص حالة استجابة السيرفر
