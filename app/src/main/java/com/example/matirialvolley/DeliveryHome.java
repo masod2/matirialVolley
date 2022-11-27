@@ -52,11 +52,11 @@ public class DeliveryHome extends AppCompatActivity {
             }
         });
         binding.load.setOnClickListener(v -> {
-            url = "https://studentucas.awamr.com/api/order/un/complete/user";
+            url = "https://studentucas.awamr.com/api/home/deliver";
 
 // التحقق من وجود توكن
             if (!token.equals("")) {
-                    postTokenToHome();
+                postTokenToHome();
 
 
             } else {
@@ -66,41 +66,40 @@ public class DeliveryHome extends AppCompatActivity {
         });
 
 
-
     }
 
     private void LogOut() {
         Toast.makeText(this, "Start loging out", Toast.LENGTH_SHORT).show();
         binding.progressBar3.setVisibility(View.VISIBLE);
-        Log.e("Stateee","LogOut 1 ");
+        Log.e("Stateee", "LogOut 1 ");
 
 //انشاء ريكويست جديد
-         JsonObjectRequest objectRequest = new JsonObjectRequest(GET, url,null
+        JsonObjectRequest objectRequest = new JsonObjectRequest(GET, url, null
                 , response -> {
             binding.progressBar3.setVisibility(View.INVISIBLE);
-            Log.e("Stateee","on Request 3 ");
+            Log.e("Stateee", "on Request 3 ");
 
             //فحص حالة استجابة السيرفر
             try {
                 // يتم الانتقال لشاشة تسجيل الدخول بكل الحالات
                 if (response.getBoolean("success")) {                    //ما يحدث عند نجاح الاستقبال
-                    Log.e("Stateee","on success 4 ");
+                    Log.e("Stateee", "on success 4 ");
 
                     Toast.makeText(this, response.getString("message"), Toast.LENGTH_SHORT).show();
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.clear();
                     editor.apply();
-                    Log.e("Stateee","  SharedPreferences  cleared 4 ");
+                    Log.e("Stateee", "  SharedPreferences  cleared 4 ");
 
                 } else {
 
                     // (اخطاء مدخلات )ما يحدث عند فشل  الاستقبال
                     Toast.makeText(getApplicationContext(), response.getString("Unauthenticated") + response.getString("error"), Toast.LENGTH_SHORT).show();
                     Toast.makeText(getApplicationContext(), response.getString("التوكن منتهى الصلاحية أو غير موجود   ") + response.getString("error"), Toast.LENGTH_SHORT).show();
-                    Log.e("Stateee","  input rong  5 ");
+                    Log.e("Stateee", "  input rong  5 ");
 
                 }
-                Log.e("Stateee","  after intent   6 ");
+                Log.e("Stateee", "  after intent   6 ");
 
                 startActivity(new Intent(getApplicationContext(), LogInActivity.class)); // يتم الانتقال لشاشة تسجيل الدخول بكل الحالات
                 finish();
@@ -132,33 +131,42 @@ public class DeliveryHome extends AppCompatActivity {
     } // end method LogOut
 
     private void postTokenToHome() {
-        Toast.makeText(this, "on postTokenToHome", Toast.LENGTH_SHORT).show();
         binding.progressBar3.setVisibility(View.VISIBLE);
- //انشاء ريكويست جديد
-        //end onResponse
-        JsonObjectRequest objectRequest = new JsonObjectRequest(POST, url, null
+        Log.e("Statee", " on postTokenToHome 1");
+        //انشاء ريكويست جديد
+         JsonObjectRequest objectRequest = new JsonObjectRequest(POST, url, null
                 , response -> {
+            Log.e("Statee", " on response 2");
+
             binding.progressBar3.setVisibility(View.INVISIBLE);
             //فحص حالة استجابة السيرفر
             try {
                 if (response.getBoolean("success")) {                    //ما يحدث عند نجاح الاستقبال
+                    Log.e("Statee", " on success 3");
 
                     JSONArray jsonArray = response.getJSONArray("data");//قراءة الاري الموجود بالرد الذى تم استلامه
                     binding.responce.setText(response.toString());
+                    Log.e("Statee", response.toString());
+
                     //    for (int i = 0; i < jsonArray.length(); i++) { // قراءة عناصر المصفوفة الموجودة بالرد
                     JSONObject jsonObject1 = jsonArray.getJSONObject(0); // قراءة العنصر iمن المصفوفة
                     //     String name = jsonObject1.getString("created_at");//قراءة كل قيمة بالاوبجيتك عل حدة حسب ال key الموجود بالسيرفر وتخزينها بمتغير محلى
                     //   int id = jsonObject1.getInt("user_id");
                     binding.oneresponce.setText(jsonObject1.toString());
+                    Log.e("Statee", jsonObject1.toString());
+
 
 
                     //  }
                     Toast.makeText(getApplicationContext(), " " + response.getString("message"), Toast.LENGTH_SHORT).show();
+                    Log.e("Statee", " end of  success 4"+response.getString("message"));
 
                 } else {
 
                     // (اخطاء مدخلات )ما يحدث عند فشل  الاستقبال
                     Toast.makeText(getApplicationContext(), " " + response.getString("error"), Toast.LENGTH_SHORT).show();
+                    Log.e("Statee", " اخطاء مدخلات "+response.getString("message"));
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -41,7 +41,7 @@ public class CustomerHome extends AppCompatActivity {
             LogOut();
         });
         binding.loadcu.setOnClickListener(v -> {
-            url = "https://studentucas.awamr.com/api/get/all/offer";
+            url = "https://studentucas.awamr.com/api/order/un/complete/user";
             postTokenToHome();
         });
     }
@@ -113,7 +113,7 @@ public class CustomerHome extends AppCompatActivity {
         binding.progressBar4.setVisibility(View.VISIBLE);
  //انشاء ريكويست جديد
         //end onResponse
-        JsonObjectRequest objectRequest = new JsonObjectRequest(POST, url, null
+        JsonObjectRequest objectRequest = new JsonObjectRequest(GET, url, null
                 , response -> {
             binding.progressBar4.setVisibility(View.INVISIBLE);
             //فحص حالة استجابة السيرفر

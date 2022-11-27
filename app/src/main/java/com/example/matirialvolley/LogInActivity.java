@@ -6,13 +6,18 @@ import static com.android.volley.Request.Method.POST;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
- import com.example.matirialvolley.databinding.ActivityLogInBinding;
+import com.example.matirialvolley.databinding.ActivityLogInBinding;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,14 +36,39 @@ public class LogInActivity extends AppCompatActivity {
         binding = ActivityLogInBinding.inflate(getLayoutInflater());//تعريف الباينديج على الواجهة
         setContentView(binding.getRoot()); // عمل فيو لها
         queue = Volley.newRequestQueue(this);
+        binding.gotoSingUpBtn.setOnClickListener(v -> {
+            binding.gotoSingUpBtn.setBackground(this.getResources().getDrawable(R.drawable.btn_backgroundselected));
+            binding.gotoLogInBtn.setBackground(this.getResources().getDrawable(R.drawable.btn_backgrounselected));
+            startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+            finish();
+        });
+        binding.signUpText.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+            finish();
+        });
+        binding.show.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked ) {
+                binding.show.setBackground(getDrawable(R.drawable.ic_baseline_lock_open));
+                binding.edPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }else {
+                binding.show.setBackground(getDrawable(R.drawable.ic_baseline_lock_24));
+                binding.edPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
 
-
-
+        });
         binding.btnLogin.setOnClickListener(v -> {
-
-            url = "https://studentucas.awamr.com/api/auth/login/user";
             Toast.makeText(this, "Try login     ", Toast.LENGTH_SHORT).show();
-            if (isValid()) {postReq();}});
+            if (binding.checkBox2.isChecked()) {
+                url = "https://studentucas.awamr.com/api/auth/login/delivery";
+
+            } else {
+                url = "https://studentucas.awamr.com/api/auth/login/user";
+
+            }
+            if (isValid()) {
+                postReq();
+            }
+        });
 
     }
 
@@ -80,7 +110,7 @@ public class LogInActivity extends AppCompatActivity {
             //فحص حالة استجابة السيرفر
             try {
                 if (response.getBoolean("success")) {  // تخزين التوكن بشيرد برييفرنس فى حال نجاح تسجيل الدخول
-                    String token = "Bearer "+   response.getJSONObject("data").getString("token");
+                    String token = "Bearer " + response.getJSONObject("data").getString("token");
                     Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
                     Toast.makeText(getApplicationContext(), "" + response.getString("message"), Toast.LENGTH_SHORT).show();
                     SharedPreferences prefs = getSharedPreferences("TokenSaver", MODE_PRIVATE);
@@ -88,7 +118,7 @@ public class LogInActivity extends AppCompatActivity {
                     if (binding.checkBox2.isChecked()) {
                         startActivity(new Intent(getApplicationContext(), DeliveryHome.class));
                         finish();
-                    }else {
+                    } else {
                         startActivity(new Intent(getApplicationContext(), CustomerHome.class));
                         finish();
                     }

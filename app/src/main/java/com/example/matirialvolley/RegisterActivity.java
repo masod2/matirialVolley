@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
  import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -45,6 +47,15 @@ public class RegisterActivity extends AppCompatActivity {
         if (!dataExtracted) {
             getData();
         }
+        binding.show.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    if (isChecked) {
+                        binding.show.setBackground(getDrawable(R.drawable.ic_baseline_lock_open));
+                        binding.edPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    } else {
+                        binding.show.setBackground(getDrawable(R.drawable.ic_baseline_lock_24));
+                        binding.edPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    }
+                });
         binding.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (binding.checkBox.isChecked()) {
                 binding.spinner.setVisibility(View.VISIBLE);
