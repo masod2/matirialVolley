@@ -39,14 +39,21 @@ public class SplachActivity extends AppCompatActivity {
 
             SharedPreferences prefs = getSharedPreferences("TokenSaver", MODE_PRIVATE);  // استدعاء ملف البريفرانس
             String token = prefs.getString("Token", ""); // احضار قيمة التوكن
+            boolean isDelivery = prefs.getBoolean("isDelivery", false);
             // تحديد وجهة المستخدم حسب المتغيرات أعلاه (هل متوفر التوكن اولا ++ هل هو مقدم خدمة أو زبون )
             if (token.equals("")) {
                 Toast.makeText(getApplicationContext(), "token not exist ", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), LogInActivity.class));
                 finish();
             } else {
-                startActivity(new Intent(getApplicationContext(), DeliveryHome.class));
-                finish();
+                if (isDelivery ) {
+                    startActivity(new Intent(getApplicationContext(), DeliveryHome.class));
+                    finish();
+                }else {
+                    startActivity(new Intent(getApplicationContext(), CustomerHome.class));
+                    finish();
+                }
+
                 Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
 
             }

@@ -114,6 +114,7 @@ public class LogInActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
                     Toast.makeText(getApplicationContext(), "" + response.getString("message"), Toast.LENGTH_SHORT).show();
                     SharedPreferences prefs = getSharedPreferences("TokenSaver", MODE_PRIVATE);
+                    prefs.edit().putBoolean("isDelivery", binding.checkBox2.isChecked()).apply(); // تخزين نوع العميل لاستخدامها بشاشة السبلاش
                     prefs.edit().putString("Token", token).apply();
                     if (binding.checkBox2.isChecked()) {
                         startActivity(new Intent(getApplicationContext(), DeliveryHome.class));

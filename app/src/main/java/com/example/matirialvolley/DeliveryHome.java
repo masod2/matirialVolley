@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.example.matirialvolley.Sett.Users;
 import com.example.matirialvolley.databinding.ActivityDeleveryHomeBinding;
 
 import org.json.JSONArray;
@@ -134,7 +136,7 @@ public class DeliveryHome extends AppCompatActivity {
         binding.progressBar3.setVisibility(View.VISIBLE);
         Log.e("Statee", " on postTokenToHome 1");
         //انشاء ريكويست جديد
-         JsonObjectRequest objectRequest = new JsonObjectRequest(POST, url, null
+        JsonObjectRequest objectRequest = new JsonObjectRequest(POST, url, null
                 , response -> {
             Log.e("Statee", " on response 2");
 
@@ -148,24 +150,37 @@ public class DeliveryHome extends AppCompatActivity {
                     binding.responce.setText(response.toString());
                     Log.e("Statee", response.toString());
 
-                    //    for (int i = 0; i < jsonArray.length(); i++) { // قراءة عناصر المصفوفة الموجودة بالرد
-                    JSONObject jsonObject1 = jsonArray.getJSONObject(0); // قراءة العنصر iمن المصفوفة
-                    //     String name = jsonObject1.getString("created_at");//قراءة كل قيمة بالاوبجيتك عل حدة حسب ال key الموجود بالسيرفر وتخزينها بمتغير محلى
-                    //   int id = jsonObject1.getInt("user_id");
-                    binding.oneresponce.setText(jsonObject1.toString());
-                    Log.e("Statee", jsonObject1.toString());
+                    for (int i = 0; i < jsonArray.length(); i++) { // قراءة عناصر المصفوفة الموجودة بالرد
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i); // قراءة العنصر iمن المصفوفة
+                        Log.e("Statee", jsonArray.getJSONObject(i).toString() +"4" );
 
 
+                        Glide.with(this).load("https://studentucas.awamr.com/assets/images/orderPhotos/RgLdOMD722mtwqc8XBjLOBeCbQHTBZ6sX1OO4r2m.jpg").into(binding.imageView);// عؤض صورة من الرابط وعلرضها
+                        String dateOfcreate = jsonObject1.getString("created_at");//قراءة كل قيمة بالاوبجيتك عل حدة حسب ال key الموجود بالسيرفر وتخزينها بمتغير محلى
+                        int orderid = jsonObject1.getInt("user_id");
+                        String userName = jsonObject1.getJSONObject("user").getString("name");
+                        int userid = jsonObject1.getJSONObject("user").getInt("id");
+                        Users user = new Users(userid, userName);
+                        String onres = "user data \n" +
+                                " name:" + user.get_name() + "\n" +
+                                "id :" + user.get_id() + "\n" +
+                                " order id :" + orderid + "\n" +
+                                " date of order :" + dateOfcreate;
+                        Log.e("Statee", onres);
 
-                    //  }
+                        binding.oneresponce.setText(onres);
+                        Log.e("Statee", jsonObject1.toString());
+
+
+                    }
                     Toast.makeText(getApplicationContext(), " " + response.getString("message"), Toast.LENGTH_SHORT).show();
-                    Log.e("Statee", " end of  success 4"+response.getString("message"));
+                    Log.e("Statee", " end of  success 4" + response.getString("message"));
 
                 } else {
 
                     // (اخطاء مدخلات )ما يحدث عند فشل  الاستقبال
                     Toast.makeText(getApplicationContext(), " " + response.getString("error"), Toast.LENGTH_SHORT).show();
-                    Log.e("Statee", " اخطاء مدخلات "+response.getString("message"));
+                    Log.e("Statee", " اخطاء مدخلات " + response.getString("message"));
 
                 }
             } catch (JSONException e) {
