@@ -41,6 +41,11 @@ public class SplachActivity extends AppCompatActivity {
             String token = prefs.getString("Token", ""); // احضار قيمة التوكن
             boolean isDelivery = prefs.getBoolean("isDelivery", false);
             // تحديد وجهة المستخدم حسب المتغيرات أعلاه (هل متوفر التوكن اولا ++ هل هو مقدم خدمة أو زبون )
+
+            if (prefs.getBoolean("isFirst",true)) {
+                startActivity(new Intent(getApplicationContext(), WelcomingActivity.class));
+                finish();
+            }else {
             if (token.equals("")) {
                 Toast.makeText(getApplicationContext(), "token not exist ", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), LogInActivity.class));
@@ -53,10 +58,8 @@ public class SplachActivity extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), CustomerHome.class));
                     finish();
                 }
-
                 Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
-
-            }
+            }}
 
         }, 2000);
     }
