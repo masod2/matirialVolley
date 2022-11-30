@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.example.matirialvolley.Sett.TokenSaver;
 import com.example.matirialvolley.databinding.ActivityWelcomingBinding;
 
 
@@ -34,8 +35,8 @@ public class WelcomingActivity extends AppCompatActivity {
             } else {
                 startActivity(new Intent(getApplicationContext(), LogInActivity.class));
                 finish();
-                SharedPreferences prefs = getSharedPreferences("TokenSaver", MODE_PRIVATE);
-                prefs.edit().putBoolean("isFirst", false).apply(); // تخزين العملية  لاستخدامها بشاشة السبلاش
+                TokenSaver.setIsFirst(this,false);
+                // تخزين العملية  لاستخدامها بشاشة السبلاش
             }
 
         });

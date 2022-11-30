@@ -17,49 +17,48 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.matirialvolley.Sett.Datum;
+import com.example.matirialvolley.Sett.TokenSaver;
 import com.example.matirialvolley.Sett.Users;
+import com.example.matirialvolley.Sett.Work;
 import com.example.matirialvolley.databinding.ActivityDeleveryHomeBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DeliveryHome extends AppCompatActivity {
     ActivityDeleveryHomeBinding binding; //عمل بايندينج للعناصر بعد تفعيلها بالجريدل
-    String token, url;
-    SharedPreferences prefs;
-
+    String url;
+    ArrayList<Datum> dataRes = new ArrayList<>();
+    String token = TokenSaver.getToken(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDeleveryHomeBinding.inflate(getLayoutInflater());//تعريف الباينديج على الواجهة
         setContentView(binding.getRoot());
-        prefs = getSharedPreferences("TokenSaver", MODE_PRIVATE);
-        token = prefs.getString("Token", "");
-        binding.progressBar3.setVisibility(View.INVISIBLE);
+
+        url = "https://studentucas.awamr.com/api/home/deliver";
+// التحقق من وجود توكن
+        if (!TokenSaver.getToken(this).equals("")) {
+            postTokenToHome();
+
+
+        } else {
+            binding.responce.setText("token not exist please log in to load data ");
+
+
+        }
         binding.logout.setOnClickListener(v -> {
             url = "https://studentucas.awamr.com/api/auth/logout";
             // التحقق من وجود توكن
-            if (!token.equals("")) {
+            if (!TokenSaver.getToken(this).equals("")) {
                 LogOut();
-
-
-            } else {
-                binding.responce.setText("token not exist please log in to load data ");
-
-            }
-        });
-        binding.load.setOnClickListener(v -> {
-            url = "https://studentucas.awamr.com/api/home/deliver";
-
-// التحقق من وجود توكن
-            if (!token.equals("")) {
-                postTokenToHome();
-
 
             } else {
                 binding.responce.setText("token not exist please log in to load data ");
@@ -88,10 +87,7 @@ public class DeliveryHome extends AppCompatActivity {
                     Log.e("Stateee", "on success 4 ");
 
                     Toast.makeText(this, response.getString("message"), Toast.LENGTH_SHORT).show();
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.clear();
-                    editor.apply();
-                    Log.e("Stateee", "  SharedPreferences  cleared 4 ");
+                    TokenSaver.logout(this);
 
                 } else {
 
@@ -145,34 +141,37 @@ public class DeliveryHome extends AppCompatActivity {
             try {
                 if (response.getBoolean("success")) {                    //ما يحدث عند نجاح الاستقبال
                     Log.e("Statee", " on success 3");
-
-                    JSONArray jsonArray = response.getJSONArray("data");//قراءة الاري الموجود بالرد الذى تم استلامه
-                    binding.responce.setText(response.toString());
+                    Toast.makeText(this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    Log.e("Statee", response.getString("message"));
                     Log.e("Statee", response.toString());
-
-                    for (int i = 0; i < jsonArray.length(); i++) { // قراءة عناصر المصفوفة الموجودة بالرد
-                        JSONObject jsonObject1 = jsonArray.getJSONObject(i); // قراءة العنصر iمن المصفوفة
-                        Log.e("Statee", jsonArray.getJSONObject(i).toString() +"4" );
-
-
-                        Glide.with(this).load("https://studentucas.awamr.com/assets/images/orderPhotos/RgLdOMD722mtwqc8XBjLOBeCbQHTBZ6sX1OO4r2m.jpg").into(binding.imageView);// عؤض صورة من الرابط وعلرضها
-                        String dateOfcreate = jsonObject1.getString("created_at");//قراءة كل قيمة بالاوبجيتك عل حدة حسب ال key الموجود بالسيرفر وتخزينها بمتغير محلى
-                        int orderid = jsonObject1.getInt("user_id");
-                        String userName = jsonObject1.getJSONObject("user").getString("name");
-                        int userid = jsonObject1.getJSONObject("user").getInt("id");
-                        Users user = new Users(userid, userName);
-                        String onres = "user data \n" +
-                                " name:" + user.get_name() + "\n" +
-                                "id :" + user.get_id() + "\n" +
-                                " order id :" + orderid + "\n" +
-                                " date of order :" + dateOfcreate;
-                        Log.e("Statee", onres);
-
-                        binding.oneresponce.setText(onres);
-                        Log.e("Statee", jsonObject1.toString());
+                    JSONArray jsonArray = response.getJSONArray("data");//قراءة الاري الموجود بالرد الذى تم استلامه
+                    Log.e("Statee", jsonArray.toString());
+                    //     binding.responce.setText(jsonArray.toString());
 
 
-                    }
+                    //  for (int i = 0; i < jsonArray.length(); i++) { // قراءة عناصر المصفوفة الموجودة بالرد
+                    JSONObject jsonObject1 = jsonArray.getJSONObject(1); // قراءة العنصر iمن المصفوفة
+                    Log.e("Statee", jsonObject1.toString());
+
+                    Log.e("Statee", jsonArray.getJSONObject(1).toString() + "4");
+                    Glide.with(this).load("https://studentucas.awamr.com/assets/images/orderPhotos/RgLdOMD722mtwqc8XBjLOBeCbQHTBZ6sX1OO4r2m.jpg").into(binding.imageres);// عؤض صورة من الرابط وعلرضها
+                    String dateOfcreate = jsonObject1.getString("created_at");//قراءة كل قيمة بالاوبجيتك عل حدة حسب ال key الموجود بالسيرفر وتخزينها بمتغير محلى
+                    int orderid = jsonObject1.getInt("user_id");
+                    String userName = jsonObject1.getJSONObject("user").getString("name");
+                    int userid = jsonObject1.getJSONObject("user").getInt("id");
+                    Users user = new Users(userid, userName);
+                    String onres = "user data \n" +
+                            " name:" + user.get_name() + "\n" +
+                            "id :" + user.get_id() + "\n" +
+                            " order id :" + orderid + "\n" +
+                            " date of order :" + dateOfcreate;
+                    Log.e("Statee", onres);
+
+                    binding.oneresponce.setText(onres);
+                    Log.e("Statee", jsonObject1.toString());
+
+
+                    //  }
                     Toast.makeText(getApplicationContext(), " " + response.getString("message"), Toast.LENGTH_SHORT).show();
                     Log.e("Statee", " end of  success 4" + response.getString("message"));
 

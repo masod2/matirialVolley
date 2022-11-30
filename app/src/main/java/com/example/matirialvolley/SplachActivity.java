@@ -10,6 +10,7 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.matirialvolley.Sett.TokenSaver;
 import com.example.matirialvolley.databinding.ActivitySplachBinding;
 
 
@@ -36,29 +37,24 @@ public class SplachActivity extends AppCompatActivity {
 
     private void controlSplashActivity() {
         new Handler().postDelayed(() -> {
-
-            SharedPreferences prefs = getSharedPreferences("TokenSaver", MODE_PRIVATE);  // استدعاء ملف البريفرانس
-            String token = prefs.getString("Token", ""); // احضار قيمة التوكن
-            boolean isDelivery = prefs.getBoolean("isDelivery", false);
             // تحديد وجهة المستخدم حسب المتغيرات أعلاه (هل متوفر التوكن اولا ++ هل هو مقدم خدمة أو زبون )
 
-            if (prefs.getBoolean("isFirst",true)) {
+            if (TokenSaver.IsFirst(this)) {
                 startActivity(new Intent(getApplicationContext(), WelcomingActivity.class));
                 finish();
             }else {
-            if (token.equals("")) {
+            if (TokenSaver.getToken(this).equals("")) {
                 Toast.makeText(getApplicationContext(), "token not exist ", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), LogInActivity.class));
                 finish();
             } else {
-                if (isDelivery ) {
+                if (TokenSaver.IsDelevery(this) ) {
                     startActivity(new Intent(getApplicationContext(), DeliveryHome.class));
                     finish();
                 }else {
                     startActivity(new Intent(getApplicationContext(), CustomerHome.class));
                     finish();
                 }
-                Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
             }}
 
         }, 2000);

@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.matirialvolley.Sett.TokenSaver;
 import com.example.matirialvolley.databinding.ActivityLogInBinding;
 
 import org.json.JSONException;
@@ -113,9 +114,9 @@ public class LogInActivity extends AppCompatActivity {
                     String token = "Bearer " + response.getJSONObject("data").getString("token");
                     Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
                     Toast.makeText(getApplicationContext(), "" + response.getString("message"), Toast.LENGTH_SHORT).show();
-                    SharedPreferences prefs = getSharedPreferences("TokenSaver", MODE_PRIVATE);
-                    prefs.edit().putBoolean("isDelivery", binding.checkBox2.isChecked()).apply(); // تخزين نوع العميل لاستخدامها بشاشة السبلاش
-                    prefs.edit().putString("Token", token).apply();
+                    TokenSaver.setToken(this,token);//تخزين الكود
+                    TokenSaver.setIsDelevery(this,binding.checkBox2.isChecked());// تخزين نوع العميل لاستخدامها بشاشة السبلاش
+
                     if (binding.checkBox2.isChecked()) {
                         startActivity(new Intent(getApplicationContext(), DeliveryHome.class));
                         finish();

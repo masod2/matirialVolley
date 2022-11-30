@@ -14,6 +14,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.matirialvolley.Sett.TokenSaver;
 import com.example.matirialvolley.databinding.ActivityCustumerHomeBinding;
 
 import org.json.JSONArray;
@@ -26,15 +27,13 @@ import java.util.Map;
 public class CustomerHome extends AppCompatActivity {
     ActivityCustumerHomeBinding binding; //عمل بايندينج للعناصر بعد تفعيلها بالجريدل
     SharedPreferences prefs;
-    String token, url;
-
+    String    url;
+    String token = TokenSaver.getToken(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCustumerHomeBinding.inflate(getLayoutInflater());//تعريف الباينديج على الواجهة
         setContentView(binding.getRoot());
-        prefs = getSharedPreferences("TokenSaver", MODE_PRIVATE);
-        token = prefs.getString("Token", "");
 
         binding.logOut.setOnClickListener(v -> {
             url = "https://studentucas.awamr.com/api/auth/logout";
@@ -63,10 +62,7 @@ public class CustomerHome extends AppCompatActivity {
                 if (response.getBoolean("success")) {                    //ما يحدث عند نجاح الاستقبال
                     Log.e("Stateee","on success 4 ");
 
-                    Toast.makeText(this, response.getString("message"), Toast.LENGTH_SHORT).show();
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.clear();
-                    editor.apply();
+                    TokenSaver.logout(this);
                     Log.e("Stateee","  SharedPreferences  cleared 4 ");
 
                 } else {
