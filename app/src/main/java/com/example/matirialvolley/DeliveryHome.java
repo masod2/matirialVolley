@@ -35,19 +35,18 @@ public class DeliveryHome extends AppCompatActivity {
     ActivityDeleveryHomeBinding binding; //عمل بايندينج للعناصر بعد تفعيلها بالجريدل
     String url;
     ArrayList<Datum> dataRes = new ArrayList<>();
-    String token = TokenSaver.getToken(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDeleveryHomeBinding.inflate(getLayoutInflater());//تعريف الباينديج على الواجهة
         setContentView(binding.getRoot());
-
+        Log.e("Statee", "DeliveryHome");
         url = "https://studentucas.awamr.com/api/home/deliver";
 // التحقق من وجود توكن
         if (!TokenSaver.getToken(this).equals("")) {
             postTokenToHome();
-
+            Toast.makeText(this, "DONE", Toast.LENGTH_SHORT).show();
 
         } else {
             binding.responce.setText("token not exist please log in to load data ");
@@ -70,6 +69,8 @@ public class DeliveryHome extends AppCompatActivity {
     }
 
     private void LogOut() {
+        String token = TokenSaver.getToken(this);
+
         Toast.makeText(this, "Start loging out", Toast.LENGTH_SHORT).show();
         binding.progressBar3.setVisibility(View.VISIBLE);
         Log.e("Stateee", "LogOut 1 ");
@@ -129,6 +130,8 @@ public class DeliveryHome extends AppCompatActivity {
     } // end method LogOut
 
     private void postTokenToHome() {
+        String token = TokenSaver.getToken(this);
+
         binding.progressBar3.setVisibility(View.VISIBLE);
         Log.e("Statee", " on postTokenToHome 1");
         //انشاء ريكويست جديد

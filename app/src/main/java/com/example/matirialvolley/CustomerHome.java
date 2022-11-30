@@ -28,7 +28,6 @@ public class CustomerHome extends AppCompatActivity {
     ActivityCustumerHomeBinding binding; //عمل بايندينج للعناصر بعد تفعيلها بالجريدل
     SharedPreferences prefs;
     String    url;
-    String token = TokenSaver.getToken(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +45,7 @@ public class CustomerHome extends AppCompatActivity {
     }
 
     private void LogOut() {
+        String token = TokenSaver.getToken(this);
         Toast.makeText(this, "Start loging out", Toast.LENGTH_SHORT).show();
         binding.progressBar4.setVisibility(View.VISIBLE);
         Log.e("Stateee","LogOut 1 ");
@@ -105,6 +105,8 @@ public class CustomerHome extends AppCompatActivity {
     } // end method LogOut
 
     private void postTokenToHome() {
+        String token = TokenSaver.getToken(this);
+
         Toast.makeText(this, "on postTokenToHome", Toast.LENGTH_SHORT).show();
         binding.progressBar4.setVisibility(View.VISIBLE);
  //انشاء ريكويست جديد

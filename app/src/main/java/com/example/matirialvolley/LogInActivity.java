@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
@@ -111,13 +112,18 @@ public class LogInActivity extends AppCompatActivity {
             //فحص حالة استجابة السيرفر
             try {
                 if (response.getBoolean("success")) {  // تخزين التوكن بشيرد برييفرنس فى حال نجاح تسجيل الدخول
+
                     String token = "Bearer " + response.getJSONObject("data").getString("token");
                     Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
                     Toast.makeText(getApplicationContext(), "" + response.getString("message"), Toast.LENGTH_SHORT).show();
                     TokenSaver.setToken(this,token);//تخزين الكود
+                    Log.e("Statee",TokenSaver.getToken(this));
                     TokenSaver.setIsDelevery(this,binding.checkBox2.isChecked());// تخزين نوع العميل لاستخدامها بشاشة السبلاش
+                    Log.e("Statee",TokenSaver.IsDelevery(this)+"");
 
-                    if (binding.checkBox2.isChecked()) {
+                    if (TokenSaver.IsDelevery(this)) {
+                        Log.e("Statee","goto DeliveryHome");
+
                         startActivity(new Intent(getApplicationContext(), DeliveryHome.class));
                         finish();
                     } else {
