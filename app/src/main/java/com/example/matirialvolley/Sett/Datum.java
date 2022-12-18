@@ -2,33 +2,40 @@ package com.example.matirialvolley.Sett;
 
 public class Datum {
 
-    private int id;
-    private int workId;
-    private int userId;
+    private Integer id;
+
+    private Integer userId;
+
     private String detailsAddress;
+
     private String lat;
+
     private String _long;
+
+    private Integer workId;
+
     private String createdAt;
-    private Work work;
-    private Users user;
+
+    private DataWork work;
+
     private PhotoOrderHome photoOrderHome;
+    private String photo;
 
-    public Datum() {
-    }
+    private User user;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -56,11 +63,11 @@ public class Datum {
         this._long = _long;
     }
 
-    public int getWorkId() {
+    public Integer getWorkId() {
         return workId;
     }
 
-    public void setWorkId(int  workId) {
+    public void setWorkId(Integer workId) {
         this.workId = workId;
     }
 
@@ -72,11 +79,11 @@ public class Datum {
         this.createdAt = createdAt;
     }
 
-    public Work getWork() {
+    public DataWork getWork() {
         return work;
     }
 
-    public void setWork(Work work) {
+    public void setWork(DataWork work) {
         this.work = work;
     }
 
@@ -88,11 +95,19 @@ public class Datum {
         this.photoOrderHome = photoOrderHome;
     }
 
-    public Users getUser() {
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

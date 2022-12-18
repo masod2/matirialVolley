@@ -1,13 +1,13 @@
 package com.example.matirialvolley.Sett;
 
-public class Users {
+public class User {
 
     private int _id;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(int _id, String _name) {
+    public User(int _id, String _name) {
         this._id = _id;
         this._name = _name;
     }

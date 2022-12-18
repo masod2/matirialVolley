@@ -18,7 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.matirialvolley.Sett.SpinAdapter;
-import com.example.matirialvolley.Sett.Work;
+import com.example.matirialvolley.Sett.DataWork;
 import com.example.matirialvolley.databinding.ActivityRegisterBinding;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     SpinAdapter adapter;
     RequestQueue queue  ;
 
-    ArrayList<Work> works = new ArrayList<>();
+    ArrayList<DataWork> works = new ArrayList<>();
     JsonObjectRequest objectRequest;
     String username, email, password, phone, name, url;
     boolean dataExtracted = false;
@@ -92,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
     private void postRegisterReq() {
         binding.progressBar.setVisibility(View.VISIBLE);
-        Work work = (Work) binding.spinner.getSelectedItem();
+        DataWork work = (DataWork) binding.spinner.getSelectedItem();
         int workId = work.getId();
 
         JSONObject jsonObject = new JSONObject();
@@ -163,7 +163,7 @@ public class RegisterActivity extends AppCompatActivity {
                     name = jsonObject1.getString("name");//قراءة كل قيمة بالاوبجيتك عل حدة حسب ال key الموجود بالسيرفر وتخزينها بمتغير محلى
                     id = jsonObject1.getInt("id");
 
-                    works.add(new Work(id, name));
+                    works.add(new DataWork(id, name));
                     adapter = new SpinAdapter(getApplicationContext(),
                             android.R.layout.simple_spinner_item,
                             works);
@@ -177,7 +177,7 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                            Work work = (Work) binding.spinner.getSelectedItem();
+                            DataWork work = (DataWork) binding.spinner.getSelectedItem();
                             Toast.makeText(RegisterActivity.this, "Name: " + work.getName() + "\nid: " + work.getId() + "\n ", Toast.LENGTH_SHORT).show();
 
 

@@ -1,16 +1,16 @@
 package com.example.matirialvolley.Sett;
 
-public class Work {
+public class DataWork {
 
     private int _id;
     private String _name;
 
-    public Work(){
+    public DataWork(){
         this._id = 0;
         this._name = "";
     }
 
-    public Work(int _id, String _name) {
+    public DataWork(int _id, String _name) {
         this._id = _id;
         this._name = _name;
     }
