@@ -1,5 +1,6 @@
 package com.example.matirialvolley.Sett;
 
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,13 +17,12 @@ import com.example.matirialvolley.databinding.ItemBinding;
 import java.util.ArrayList;
 
 public class ReAdapter extends RecyclerView.Adapter<ReAdapter.RecHolder> {
-    ArrayList<Datum> data;
+    ArrayList<Datum> datumArrayList;
 
+    public ReAdapter(ArrayList<Datum> datumArrayList) {
+        this.datumArrayList = datumArrayList;
+    }
 
-    public ReAdapter(ArrayList<Datum> datum ) {
-        this.data = datum;
-        notifyDataSetChanged();
-     }
 
     @NonNull
     @Override
@@ -30,18 +30,36 @@ public class ReAdapter extends RecyclerView.Adapter<ReAdapter.RecHolder> {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false); // اضافة التصميم
         return new RecHolder(view);
     }
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+    private OnItemClickListener mListener;
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
     @Override
     public void onBindViewHolder(@NonNull RecHolder holder, int position) {
-        Datum datum = data.get(position);
-         //
+        Datum datum = datumArrayList.get(position);
+        //
         holder.bind(datum);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null) {
+                    mListener.onItemClick(holder.getAdapterPosition());
+                }
+            }
+        });
+
     }
-//حجم التكرا عدد العناصر
+
+    //حجم التكرا عدد العناصر
     @Override
     public int getItemCount() {
-        return data.size();
+        return datumArrayList.size();
     }
+
 
     static public class RecHolder extends RecyclerView.ViewHolder {
         ItemBinding binding;
@@ -56,14 +74,11 @@ public class ReAdapter extends RecyclerView.Adapter<ReAdapter.RecHolder> {
 
 
         //تعبئة بيانات اليوزر بالتصميم
-        void bind(Datum datum ) {
-            Glide.with(context).load(datum.getPhotoOrderHome().getPhoto()).into(binding.image);
-            binding.id.setText(datum.getId()+"");
-            binding.workname.setText("Servese tybe :"+datum.getWork().getName());
+        void bind(Datum datum) {
+            Glide.with(context).load(datum.getPhoto()).into(binding.image);
+            binding.id.setText(datum.getId() + "");
+            binding.workname.setText("Servese tybe :" + datum.getWork().getName());
             binding.date.setText(datum.getCreatedAt());
-            binding.date.setText(datum.getCreatedAt());
-            Log.d("stateee",datum.getWork().getName());
-
         }
     }
 }

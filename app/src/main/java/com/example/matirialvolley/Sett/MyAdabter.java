@@ -19,6 +19,7 @@ public class MyAdabter extends RecyclerView.Adapter<MyAdabter.myHolder> {
     ArrayList<Datum> data = new ArrayList<>();
     Context context;
 
+
     @NonNull
     @Override
     public MyAdabter.myHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

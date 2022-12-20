@@ -17,8 +17,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.matirialvolley.Sett.DataWork;
 import com.example.matirialvolley.Sett.Datum;
-import com.example.matirialvolley.Sett.MyAdabter;
-import com.example.matirialvolley.Sett.ReAdapter;
+ import com.example.matirialvolley.Sett.ReAdapter;
 import com.example.matirialvolley.Sett.TokenSaver;
 import com.example.matirialvolley.databinding.ActivityDeleveryHomeBinding;
 
@@ -45,10 +44,8 @@ public class DeliveryHome extends AppCompatActivity {
 // التحقق من وجود توكن
         if (!TokenSaver.getToken(this).equals("")) {
             postTokenToHome();
-            MyAdabter adabter = new MyAdabter();
-            adabter.setlist(datumArrayList);
-            binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            binding.recyclerView.setAdapter(adabter);
+          //  startActivity(new Intent(getApplicationContext(), MapsActivity.class));
+         //   finish();
 
             Toast.makeText(this, "DONE", Toast.LENGTH_SHORT).show();
 
@@ -135,6 +132,7 @@ public class DeliveryHome extends AppCompatActivity {
 
     private void postTokenToHome() {
         String token = TokenSaver.getToken(this);
+
         binding.progressBar3.setVisibility(View.VISIBLE);
         Log.e("Statee", " on postTokenToHome 1");
         //انشاء ريكويست جديد
@@ -148,37 +146,53 @@ public class DeliveryHome extends AppCompatActivity {
                 if (response.getBoolean("success")) {                    //ما يحدث عند نجاح الاستقبال
                     Log.e("Statee", " on success 3");
                     Toast.makeText(this, response.getString("message"), Toast.LENGTH_SHORT).show();
-                    Log.e("Statee", response.getString("message"));
-                    Log.e("Statee", response.toString());
                     JSONArray jsonArray = response.getJSONArray("data");//قراءة الاري الموجود بالرد الذى تم استلامه
-                    Log.e("Statee", jsonArray.toString());
-
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i); // قراءة العنصر iمن المصفوفة
+
                         int orderid = jsonObject1.getInt("id");
                         String workName = jsonObject1.getJSONObject("work").getString("name");
                         int workid = jsonObject1.getJSONObject("work").getInt("id");
                         String imgs = jsonObject1.getJSONObject("photo_order_home").getString("photo");
                         String created_at = jsonObject1.getString("created_at");
+                        Log.d("Statee", orderid +workName +created_at +workid +imgs);
+
                         Datum datum = new Datum();
                         datum.setId(orderid);
                         datum.setWork(new DataWork(workid, workName));
                         datum.setPhoto(imgs);
                         datum.setCreatedAt(created_at);
+                        datum.setLat(jsonObject1.getInt("lat"));
+                        datum.setLong(jsonObject1.getInt("long"));
                         datumArrayList.add(datum);
-                        Log.d("Statee", datumArrayList.get(i).toString());
                     }
+                    ReAdapter adapter = new ReAdapter(datumArrayList );
+                    adapter.setOnItemClickListener(new ReAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(int position) {
+                             TokenSaver.setPositionLong(getApplicationContext(),datumArrayList.get(position).getLat());
+                            TokenSaver.setPositionLong(getApplicationContext(),datumArrayList.get(position).getLong());
+
+                            startActivity(new Intent(getApplicationContext(),MapsActivity2.class));
+                        }
+                    });
+
+                    binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                    binding.recyclerView.setAdapter(adapter);
 
 
 
+                    //  }
                     Toast.makeText(getApplicationContext(), " " + response.getString("message"), Toast.LENGTH_SHORT).show();
                     Log.e("Statee", " end of  success 4" + response.getString("message"));
 
                 } else {
+
                     // (اخطاء مدخلات )ما يحدث عند فشل  الاستقبال
                     Toast.makeText(getApplicationContext(), " " + response.getString("error"), Toast.LENGTH_SHORT).show();
                     Log.e("Statee", " اخطاء مدخلات " + response.getString("message"));
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

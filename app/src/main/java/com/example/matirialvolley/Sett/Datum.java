@@ -8,9 +8,9 @@ public class Datum {
 
     private String detailsAddress;
 
-    private String lat;
+    private int lat;
 
-    private String _long;
+    private int _long;
 
     private Integer workId;
 
@@ -47,19 +47,19 @@ public class Datum {
         this.detailsAddress = detailsAddress;
     }
 
-    public String getLat() {
+    public int getLat() {
         return lat;
     }
 
-    public void setLat(String lat) {
+    public void setLat(int lat) {
         this.lat = lat;
     }
 
-    public String getLong() {
+    public int getLong() {
         return _long;
     }
 
-    public void setLong(String _long) {
+    public void setLong(int _long) {
         this._long = _long;
     }
 

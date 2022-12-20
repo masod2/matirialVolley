@@ -19,6 +19,7 @@ public class TokenSaver {
         editor.apply();
     }
 
+
     public static boolean IsFirst(Context c) {
         SharedPreferences prefs = c.getSharedPreferences("SHARED_PREF", Context.MODE_PRIVATE);
         return prefs.getBoolean("IsFirst", true);
@@ -43,6 +44,28 @@ public class TokenSaver {
         editor.apply();
     }
 
+    public static int getPositionLat(Context c) {
+        SharedPreferences prefs = c.getSharedPreferences("SHARED_PREF", Context.MODE_PRIVATE);
+        return prefs.getInt("PositionLat", 0);
+    }
+
+    public static void setPositionLat(Context c, int PositionLat) {
+        SharedPreferences prefs = c.getSharedPreferences("SHARED_PREF", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("PositionLat", PositionLat);
+        editor.apply();
+    }
+    public static int getPositionLong(Context c) {
+        SharedPreferences prefs = c.getSharedPreferences("SHARED_PREF", Context.MODE_PRIVATE);
+        return prefs.getInt("PositionLong",0);
+    }
+
+    public static void setPositionLong(Context c, int PositionLong) {
+        SharedPreferences prefs = c.getSharedPreferences("SHARED_PREF", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("PositionLong", PositionLong);
+        editor.apply();
+    }
     public static void logout(Context c) {
         SharedPreferences sharedPreferences = c.getSharedPreferences("SHARED_PREF", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
