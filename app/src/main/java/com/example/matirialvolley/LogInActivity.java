@@ -122,7 +122,7 @@ public class LogInActivity extends AppCompatActivity {
                     Log.e("Statee",TokenSaver.IsDelevery(this)+"");
 
                     if (TokenSaver.IsDelevery(this)) {
-                        Log.e("Statee","goto DeliveryHome");
+                        Log.e("Statee","goto homeReq");
 
                         startActivity(new Intent(getApplicationContext(), DeliveryHome.class));
                         finish();

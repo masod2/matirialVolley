@@ -1,6 +1,6 @@
-package com.example.matirialvolley.Sett;
+package com.example.matirialvolley.models;
 
-public class Datum {
+public class homeReq {
 
     private Integer id;
 

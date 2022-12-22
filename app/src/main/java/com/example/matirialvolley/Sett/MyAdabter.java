@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.matirialvolley.R;
 import com.example.matirialvolley.databinding.ItemBinding;
+import com.example.matirialvolley.models.homeReq;
 
 import java.util.ArrayList;
 
 public class MyAdabter extends RecyclerView.Adapter<MyAdabter.myHolder> {
-    ArrayList<Datum> data = new ArrayList<>();
+    ArrayList<homeReq> data = new ArrayList<>();
     Context context;
 
 
@@ -42,8 +43,8 @@ public class MyAdabter extends RecyclerView.Adapter<MyAdabter.myHolder> {
         return data.size();
     }
 
-    public void setlist(ArrayList<Datum> datumArrayList) {
-        this.data = datumArrayList;
+    public void setlist(ArrayList<homeReq> deliveryHomeArrayList) {
+        this.data = deliveryHomeArrayList;
         notifyDataSetChanged();
     }
 

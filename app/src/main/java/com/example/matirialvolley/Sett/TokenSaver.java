@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import com.example.matirialvolley.LogInActivity;
 
 public class TokenSaver {
+
     public static boolean IsDelevery(Context c) {
         SharedPreferences prefs = c.getSharedPreferences("SHARED_PREF", Context.MODE_PRIVATE);
         return prefs.getBoolean("isDelevery", false);
@@ -22,6 +23,7 @@ public class TokenSaver {
 
     public static boolean IsFirst(Context c) {
         SharedPreferences prefs = c.getSharedPreferences("SHARED_PREF", Context.MODE_PRIVATE);
+
         return prefs.getBoolean("IsFirst", true);
     }
 

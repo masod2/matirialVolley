@@ -1,4 +1,4 @@
-package com.example.matirialvolley.Sett;
+package com.example.matirialvolley.models;
 
 public class PhotoOrderHome {
 

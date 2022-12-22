@@ -2,7 +2,6 @@ package com.example.matirialvolley.Sett;
 
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.matirialvolley.R;
 import com.example.matirialvolley.databinding.ItemBinding;
+import com.example.matirialvolley.models.homeReq;
 
 import java.util.ArrayList;
 
 public class ReAdapter extends RecyclerView.Adapter<ReAdapter.RecHolder> {
-    ArrayList<Datum> datumArrayList;
+    ArrayList<homeReq> deliveryHomeArrayList;
 
-    public ReAdapter(ArrayList<Datum> datumArrayList) {
-        this.datumArrayList = datumArrayList;
+    public ReAdapter(ArrayList<homeReq> deliveryHomeArrayList) {
+        this.deliveryHomeArrayList = deliveryHomeArrayList;
     }
 
 
@@ -40,9 +40,9 @@ public class ReAdapter extends RecyclerView.Adapter<ReAdapter.RecHolder> {
     }
     @Override
     public void onBindViewHolder(@NonNull RecHolder holder, int position) {
-        Datum datum = datumArrayList.get(position);
+        homeReq deliveryHome = deliveryHomeArrayList.get(position);
         //
-        holder.bind(datum);
+        holder.bind(deliveryHome);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +57,7 @@ public class ReAdapter extends RecyclerView.Adapter<ReAdapter.RecHolder> {
     //حجم التكرا عدد العناصر
     @Override
     public int getItemCount() {
-        return datumArrayList.size();
+        return deliveryHomeArrayList.size();
     }
 
 
@@ -74,11 +74,11 @@ public class ReAdapter extends RecyclerView.Adapter<ReAdapter.RecHolder> {
 
 
         //تعبئة بيانات اليوزر بالتصميم
-        void bind(Datum datum) {
-            Glide.with(context).load(datum.getPhoto()).into(binding.image);
-            binding.id.setText(datum.getId() + "");
-            binding.workname.setText("Servese tybe :" + datum.getWork().getName());
-            binding.date.setText(datum.getCreatedAt());
+        void bind(homeReq deliveryHome) {
+            Glide.with(context).load(deliveryHome.getPhoto()).into(binding.image);
+            binding.id.setText(deliveryHome.getId() + "");
+            binding.workname.setText("Servese tybe :" + deliveryHome.getWork().getName());
+            binding.date.setText(deliveryHome.getCreatedAt());
         }
     }
 }

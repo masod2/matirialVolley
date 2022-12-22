@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.matirialvolley.models.DataWork;
+
 import java.util.ArrayList;
 
 public class SpinAdapter extends ArrayAdapter<DataWork> {

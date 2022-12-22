@@ -18,7 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.matirialvolley.Sett.SpinAdapter;
-import com.example.matirialvolley.Sett.DataWork;
+import com.example.matirialvolley.models.DataWork;
 import com.example.matirialvolley.databinding.ActivityRegisterBinding;
 import org.json.JSONArray;
 import org.json.JSONException;

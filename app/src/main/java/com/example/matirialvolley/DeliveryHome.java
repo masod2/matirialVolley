@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.matirialvolley.Sett.DataWork;
-import com.example.matirialvolley.Sett.Datum;
- import com.example.matirialvolley.Sett.ReAdapter;
+import com.example.matirialvolley.models.DataWork;
+import com.example.matirialvolley.Sett.ReAdapter;
 import com.example.matirialvolley.Sett.TokenSaver;
 import com.example.matirialvolley.databinding.ActivityDeleveryHomeBinding;
+import com.example.matirialvolley.models.homeReq;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,20 +32,20 @@ import java.util.Map;
 public class DeliveryHome extends AppCompatActivity {
     ActivityDeleveryHomeBinding binding; //عمل بايندينج للعناصر بعد تفعيلها بالجريدل
     String url;
-    ArrayList<Datum> datumArrayList = new ArrayList<>();
+    ArrayList<homeReq> deliveryHomeArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDeleveryHomeBinding.inflate(getLayoutInflater());//تعريف الباينديج على الواجهة
         setContentView(binding.getRoot());
-        Log.e("Statee", "DeliveryHome");
+        Log.e("Statee", "homeReq");
         url = "https://studentucas.awamr.com/api/home/deliver";
 // التحقق من وجود توكن
         if (!TokenSaver.getToken(this).equals("")) {
             postTokenToHome();
-          //  startActivity(new Intent(getApplicationContext(), MapsActivity.class));
-         //   finish();
+
+
 
             Toast.makeText(this, "DONE", Toast.LENGTH_SHORT).show();
 
@@ -158,23 +158,23 @@ public class DeliveryHome extends AppCompatActivity {
                         String created_at = jsonObject1.getString("created_at");
                         Log.d("Statee", orderid +workName +created_at +workid +imgs);
 
-                        Datum datum = new Datum();
-                        datum.setId(orderid);
-                        datum.setWork(new DataWork(workid, workName));
-                        datum.setPhoto(imgs);
-                        datum.setCreatedAt(created_at);
-                        datum.setLat(jsonObject1.getInt("lat"));
-                        datum.setLong(jsonObject1.getInt("long"));
-                        datumArrayList.add(datum);
+                        homeReq deliveryHome = new homeReq();
+                        deliveryHome.setId(orderid);
+                        deliveryHome.setWork(new DataWork(workid, workName));
+                        deliveryHome.setPhoto(imgs);
+                        deliveryHome.setCreatedAt(created_at);
+                        deliveryHome.setLat(jsonObject1.getInt("lat"));
+                        deliveryHome.setLong(jsonObject1.getInt("long"));
+                        deliveryHomeArrayList.add(deliveryHome);
                     }
-                    ReAdapter adapter = new ReAdapter(datumArrayList );
+                    ReAdapter adapter = new ReAdapter(deliveryHomeArrayList);
                     adapter.setOnItemClickListener(new ReAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(int position) {
-                             TokenSaver.setPositionLong(getApplicationContext(),datumArrayList.get(position).getLat());
-                            TokenSaver.setPositionLong(getApplicationContext(),datumArrayList.get(position).getLong());
+                             TokenSaver.setPositionLong(getApplicationContext(), deliveryHomeArrayList.get(position).getLat());
+                            TokenSaver.setPositionLong(getApplicationContext(), deliveryHomeArrayList.get(position).getLong());
 
-                            startActivity(new Intent(getApplicationContext(),MapsActivity2.class));
+                            startActivity(new Intent(getApplicationContext(), MapsActivity.class));
                         }
                     });
 
