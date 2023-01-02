@@ -1,13 +1,13 @@
-package com.example.matirialvolley;
+package com.example.matirialvolley.UI.Welcom_Splash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.example.matirialvolley.R;
 import com.example.matirialvolley.Sett.TokenSaver;
+import com.example.matirialvolley.UI.LogInActivity;
 import com.example.matirialvolley.databinding.ActivityWelcomingBinding;
 
 

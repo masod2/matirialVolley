@@ -1,9 +1,8 @@
-package com.example.matirialvolley;
+package com.example.matirialvolley.UI.Welcom_Splash;
 
 
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
  import android.widget.Toast;
@@ -11,6 +10,9 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.matirialvolley.Sett.TokenSaver;
+import com.example.matirialvolley.UI.CustomerHome;
+import com.example.matirialvolley.UI.DeliveryHome;
+import com.example.matirialvolley.UI.LogInActivity;
 import com.example.matirialvolley.databinding.ActivitySplachBinding;
 
 

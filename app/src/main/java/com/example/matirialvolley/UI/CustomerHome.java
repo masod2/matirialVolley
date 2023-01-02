@@ -1,4 +1,4 @@
-package com.example.matirialvolley;
+package com.example.matirialvolley.UI;
 
 import static com.android.volley.Request.Method.GET;
 
@@ -27,12 +27,7 @@ import java.util.Map;
 
 public class CustomerHome extends AppCompatActivity {
     ActivityCustumerHomeBinding binding; //عمل بايندينج للعناصر بعد تفعيلها بالجريدل
-    SharedPreferences prefs;
-    String url;
-    ArrayList<DataWork> works = new ArrayList<>();
-    SpinAdapter adapter;
-    boolean dataExtracted = false;
-    RequestQueue queue;
+     String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,33 +35,19 @@ public class CustomerHome extends AppCompatActivity {
         binding = ActivityCustumerHomeBinding.inflate(getLayoutInflater());//تعريف الباينديج على الواجهة
         setContentView(binding.getRoot());
 
-        binding.Smithbtn.setOnClickListener(v -> {
+        binding.najjar.setOnClickListener(v -> {
 
             Intent intent = new Intent(getApplicationContext(), BindOrderActivity.class);
             intent.putExtra("work", 2);
             startActivity(intent);
             finish();
         });
-        binding.button2.setOnClickListener(v -> {
+        binding.hadad.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), BindOrderActivity.class);
             intent.putExtra("work", 1);
             startActivity(intent);
             finish();
         });
-        binding.Smith.setOnClickListener(v -> {
-
-            Intent intent = new Intent(getApplicationContext(), BindOrderActivity.class);
-            intent.putExtra("work", 2);
-            startActivity(intent);
-            finish();
-        });
-        binding.Carpenter.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), BindOrderActivity.class);
-            intent.putExtra("work", 1);
-            startActivity(intent);
-            finish();
-        });
-
 
         binding.logout.setOnClickListener(v -> {
             url = "https://studentucas.awamr.com/api/auth/logout";
@@ -135,58 +116,6 @@ public class CustomerHome extends AppCompatActivity {
 
     } // end method LogOut
 
-//    private void postTokenToHome() {
-//        String token = TokenSaver.getToken(this);
-//
-//        Toast.makeText(this, "on postTokenToHome", Toast.LENGTH_SHORT).show();
-//        binding.progressBar4.setVisibility(View.VISIBLE);
-//        //انشاء ريكويست جديد
-//        //end onResponse
-//        JsonObjectRequest objectRequest = new JsonObjectRequest(GET, url, null
-//                , response -> {
-//            binding.progressBar4.setVisibility(View.INVISIBLE);
-//            //فحص حالة استجابة السيرفر
-//            try {
-//                if (response.getBoolean("success")) {                    //ما يحدث عند نجاح الاستقبال
-//
-//                    JSONArray jsonArray = response.getJSONArray("data");//قراءة الاري الموجود بالرد الذى تم استلامه
-//                    binding.reesponnse.setText(response.toString());
-//                    //    for (int i = 0; i < jsonArray.length(); i++) { // قراءة عناصر المصفوفة الموجودة بالرد
-//                    JSONObject jsonObject1 = jsonArray.getJSONObject(1); // قراءة العنصر iمن المصفوفة
-//                    //     String name = jsonObject1.getString("created_at");//قراءة كل قيمة بالاوبجيتك عل حدة حسب ال key الموجود بالسيرفر وتخزينها بمتغير محلى
-//                    //   int id = jsonObject1.getInt("user_id");
-//                    binding.data.setText(jsonObject1.toString());
-//
-//
-//                    //  }
-//                    Toast.makeText(getApplicationContext(), " " + response.getString("message"), Toast.LENGTH_SHORT).show();
-//
-//                } else {
-//
-//                    // (اخطاء مدخلات )ما يحدث عند فشل  الاستقبال
-//                    Toast.makeText(getApplicationContext(), " " + response.getString("error"), Toast.LENGTH_SHORT).show();
-//                }
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//
-//        }, error -> {
-//            binding.progressBar4.setVisibility(View.INVISIBLE);
-//
-//            Toast.makeText(this, error.getMessage(), Toast.LENGTH_SHORT).show();
-//        }) {
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                Map<String, String> headers = new HashMap<>();
-//                headers.put("Authorization", token);
-//                return headers;
-//
-//            }
-//        };
-//        binding.progressBar4.setVisibility(View.INVISIBLE);
-//        RequestQueue requestQueue = Volley.newRequestQueue(this);
-//        requestQueue.add(objectRequest);
-//    } // end method postTokenToHome
 
 
 }

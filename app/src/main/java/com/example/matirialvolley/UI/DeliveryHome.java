@@ -1,4 +1,4 @@
-package com.example.matirialvolley;
+package com.example.matirialvolley.UI;
 
 import static com.android.volley.Request.Method.GET;
 import static com.android.volley.Request.Method.POST;
@@ -15,10 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.matirialvolley.models.DataWork;
 import com.example.matirialvolley.Sett.ReAdapter;
 import com.example.matirialvolley.Sett.TokenSaver;
 import com.example.matirialvolley.databinding.ActivityDeleveryHomeBinding;
+import com.example.matirialvolley.models.DataWork;
 import com.example.matirialvolley.models.homeReq;
 
 import org.json.JSONArray;
@@ -46,7 +46,6 @@ public class DeliveryHome extends AppCompatActivity {
             postTokenToHome();
 
 
-
             Toast.makeText(this, "DONE", Toast.LENGTH_SHORT).show();
 
         } else {
@@ -65,8 +64,10 @@ public class DeliveryHome extends AppCompatActivity {
 
             }
         });
+        binding.ToOrderBTN.setOnClickListener(v -> {
 
-
+            startActivity(new Intent(getApplicationContext(), OrderActivity.class));
+        });
     }
 
     private void LogOut() {
@@ -156,7 +157,7 @@ public class DeliveryHome extends AppCompatActivity {
                         int workid = jsonObject1.getJSONObject("work").getInt("id");
                         String imgs = jsonObject1.getJSONObject("photo_order_home").getString("photo");
                         String created_at = jsonObject1.getString("created_at");
-                        Log.d("Statee", orderid +workName +created_at +workid +imgs);
+                        Log.d("Statee", orderid + workName + created_at + workid + imgs);
 
                         homeReq deliveryHome = new homeReq();
                         deliveryHome.setId(orderid);
@@ -168,19 +169,15 @@ public class DeliveryHome extends AppCompatActivity {
                         deliveryHomeArrayList.add(deliveryHome);
                     }
                     ReAdapter adapter = new ReAdapter(deliveryHomeArrayList);
-                    adapter.setOnItemClickListener(new ReAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(int position) {
-                             TokenSaver.setPositionLong(getApplicationContext(), deliveryHomeArrayList.get(position).getLat());
-                            TokenSaver.setPositionLong(getApplicationContext(), deliveryHomeArrayList.get(position).getLong());
+                    adapter.setOnItemClickListener(position -> {
+                        TokenSaver.setPositionLong(getApplicationContext(), deliveryHomeArrayList.get(position).getLat());
+                        TokenSaver.setPositionLong(getApplicationContext(), deliveryHomeArrayList.get(position).getLong());
 
-                            startActivity(new Intent(getApplicationContext(), MapsActivity.class));
-                        }
+                        startActivity(new Intent(getApplicationContext(), Maps2Activity.class));
                     });
 
                     binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
                     binding.recyclerView.setAdapter(adapter);
-
 
 
                     //  }

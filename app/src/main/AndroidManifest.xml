@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,17 +16,24 @@
         android:roundIcon="@drawable/signup"
         android:supportsRtl="false"
         android:theme="@style/Theme.MatirialVolley"
-
         tools:targetApi="31">
         <activity
-            android:name=".LastAfterPostActivity"
+            android:name=".UI.OrderActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".UI.LastAfterPostActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".BindOrderActivity"
+            android:name=".UI.BindOrderActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -37,46 +45,46 @@
             android:value="AIzaSyCDli_jjC6YExNzetcExfey9qLBE0sUK9o" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".UI.Maps2Activity"
             android:exported="false"
             android:label="@string/title_activity_maps2" />
         <activity
-            android:name=".WelcomingActivity"
+            android:name=".UI.Welcom_Splash.WelcomingActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".CustomerHome"
+            android:name=".UI.CustomerHome"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".DeliveryHome"
+            android:name=".UI.DeliveryHome"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".UI.RegisterActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".LogInActivity"
+            android:name=".UI.LogInActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SplachActivity"
+            android:name=".UI.Welcom_Splash.SplachActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

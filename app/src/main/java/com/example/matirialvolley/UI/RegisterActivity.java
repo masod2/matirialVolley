@@ -1,4 +1,4 @@
-package com.example.matirialvolley;
+package com.example.matirialvolley.UI;
 
 import static com.android.volley.Request.Method.GET;
 import static com.android.volley.Request.Method.POST;
@@ -17,9 +17,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.matirialvolley.R;
 import com.example.matirialvolley.Sett.SpinAdapter;
-import com.example.matirialvolley.models.DataWork;
 import com.example.matirialvolley.databinding.ActivityRegisterBinding;
+import com.example.matirialvolley.models.DataWork;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

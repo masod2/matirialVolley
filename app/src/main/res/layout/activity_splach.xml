@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplachActivity">
+    tools:context=".UI.Welcom_Splash.SplachActivity">
 
     <ImageView
         android:id="@+id/imageView2"

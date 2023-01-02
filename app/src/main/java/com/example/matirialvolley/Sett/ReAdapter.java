@@ -43,12 +43,9 @@ public class ReAdapter extends RecyclerView.Adapter<ReAdapter.RecHolder> {
         homeReq deliveryHome = deliveryHomeArrayList.get(position);
         //
         holder.bind(deliveryHome);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mListener != null) {
-                    mListener.onItemClick(holder.getAdapterPosition());
-                }
+        holder.itemView.setOnClickListener(v -> {
+            if (mListener != null) {
+                mListener.onItemClick(holder.getAdapterPosition());
             }
         });
 

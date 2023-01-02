@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.example.matirialvolley.LogInActivity;
+import com.example.matirialvolley.UI.LogInActivity;
 
 public class TokenSaver {
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DeliveryHome">
+    tools:context=".UserInterfaces.CustomerHome">
 
 
     <ProgressBar
@@ -45,7 +45,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/btn_background"
-            android:text="Home"
+            android:text="CHome"
 
             android:textColor="@color/white" />
 
@@ -77,51 +77,72 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/Smithbtn"
-        android:layout_width="144dp"
-        android:layout_height="112dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="188dp"
-
-        android:background="@drawable/v1"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button2"
-        android:layout_width="144dp"
-        android:layout_height="112dp"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="188dp"
-
-        android:background="@drawable/v2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <TextView
-        android:id="@+id/Smith"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/hadad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="حداد"
-        android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="@+id/Smithbtn"
-        app:layout_constraintHorizontal_bias="0.554"
-        app:layout_constraintStart_toStartOf="@+id/Smithbtn"
-        app:layout_constraintTop_toBottomOf="@+id/Smithbtn" />
+        android:clickable="true"
+        android:outlineSpotShadowColor="@color/purple_700"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.25">
 
-    <TextView
-        android:id="@+id/Carpenter"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="@drawable/pipeline_maintenance_bro" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="حداد"
+                android:textSize="40sp" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/najjar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="نجار"
-        android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="@+id/button2"
-        app:layout_constraintHorizontal_bias="0.481"
-        app:layout_constraintStart_toStartOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        android:clickable="true"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.77">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="@drawable/woodworker_cuate" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="نجار"
+                android:textSize="40sp" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
